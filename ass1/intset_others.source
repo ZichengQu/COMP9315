@@ -1,0 +1,37 @@
+CREATE FUNCTION intset_in(cstring)
+   RETURNS intSet
+   AS '_OBJWD_/intset'
+   LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION intset_out(intSet)
+   RETURNS cstring
+   AS '_OBJWD_/intset'
+   LANGUAGE C IMMUTABLE STRICT;
+
+CREATE TYPE intSet (
+   internallength = variable,
+   input = intset_in,
+   output = intset_out
+);
+
+CREATE FUNCTION intset_cardinality(intSet) 
+   RETURNS integer
+   AS '_OBJWD_/intset'
+   LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR # (
+    rightarg = intSet, 
+    procedure = intset_cardinality
+);
+
+-- CREATE FUNCTION IntSet_abs_eq(IntSet, IntSet) RETURNS bool
+--    AS '_OBJWD_/IntSet' LANGUAGE C IMMUTABLE STRICT;
+
+-- CREATE OPERATOR = (
+--    leftarg = IntSet, rightarg = IntSet, procedure = IntSet_abs_eq,
+-- );
+
+
+-- clean up the example
+-- DROP TABLE test_IntSet; -- 这行千万要删掉，因为创建了，用这行把自定义的删掉，那自己写的那些的意义何在呢？
+-- DROP TYPE IntSet CASCADE; -- 这行千万要删掉，因为创建了，用这行把自定义的删掉，那自己写的那些的意义何在呢？

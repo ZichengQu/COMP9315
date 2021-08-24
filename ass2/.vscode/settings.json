@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "tsig.h": "c",
+        "psig.h": "c",
+        "stdlib.h": "c",
+        "defs.h": "c",
+        "reln.h": "c",
+        "hash.h": "c",
+        "query.h": "c"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
+// View, Command Palette中找到C/C++ Edit Configurations (UI)
+// 将Compiler path改成      /usr/bin/gcc
+// IntelliSense mode改成    gcc-x64
+// Include path改成         ${workspaceFolder}/**
+// C standard:              C11
+// C++ standard:            C++17
+// 最后该c_cpp_properties.json会自动生成.

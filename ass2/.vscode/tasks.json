@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build any_name",
+            "type": "shell",
+            "command": "make",
+            "options":{
+                "cwd": "${workspaceFolder}", 
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

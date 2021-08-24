@@ -1,0 +1,86 @@
+=========================================================================
+scp intset.c intset.source z5092597@grieg.cse.unsw.edu.au:/srvr/z5092597/postgresql-12.5/src/tutorial/* ./
+
+**DIANDENGds.
+
+===================================================Git:
+cp /home/ubuntu/Desktop/postgresql-12.5/src/tutorial/intset.c /home/ubuntu/Desktop/COMP9315_21T1/
+cp /home/ubuntu/Desktop/postgresql-12.5/src/tutorial/intset.source /home/ubuntu/Desktop/COMP9315_21T1/
+cd /home/ubuntu/Desktop/COMP9315_21T1
+git pull
+git add .
+git commit -m ""
+git push
+
+===================================================本地debug
+source /home/ubuntu/Desktop/COMP9315/pgsql/env
+cd /home/ubuntu/Desktop/postgresql-12.5/src/tutorial
+
+\q
+make
+psql ass1db
+DROP TABLE IF EXISTS mySets CASCADE;
+DROP TYPE IF EXISTS IntSet CASCADE;
+\i intset.sql
+create table mySets (id integer primary key, iset intSet);
+
+insert into mySets values (1, '{6,6}');
+insert into mySets values (2, '{2,3,1}');
+insert into mySets values (12, '{a,b,c}');
+select * from mySets;
+
+insert into mySets values (3, '{6,6,6,6,6,6}');
+insert into mySets values (4, '{10, 9, 8, 7, 6,5,4,3,2,1}');
+insert into mySets values (5, '{1, 999, 13, 666, 5}');
+insert into mySets values (6, '{    1  ,  3  ,  5 , 7,9 }');
+insert into mySets values (7, '{1, 01, 001, 0001}');
+insert into mySets values (8, '{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}');
+insert into mySets values (9, '  {1,5,7,9}');
+insert into mySets values (10, '{2,4,6, 8  }  ');
+insert into mySets values (11, '{0}');
+
+insert into mySets values (12, '{a,b,c}');
+insert into mySets values (12, '{ a, b, c }');
+insert into mySets values (13, '{1, 2.0, 3}');
+insert into mySets values (14, '{1, {2,3}, 4}');
+insert into mySets values (15, '{1, 2, 3, 4, five}');
+insert into mySets values (16, '{ 1 2 3 4 }');
+insert into mySets values (17, '1 2 3 4');
+insert into mySets values (18, '1 2 3}');
+insert into mySets values (19, '{ -1 }');
+insert into mySets values (20, '{1,2,3');
+insert into mySets values (21, '1,2,3,4,5');
+insert into mySets values (22, '{{1,2,3,5}');
+insert into mySets values (23, '{7,17,,27,37}');
+insert into mySets values (24, '{1,2,3,5,8,}');
+select * from mySets;
+
+正确的：
+'{ }'
+'{2,3,1}'
+'{6,6,6,6,6,6}'
+'{10, 9, 8, 7, 6,5,4,3,2,1}'
+'{1, 999, 13, 666, 5}'
+'{    1  ,  3  ,  5 , 7,9 }'
+'{1, 01, 001, 0001}'  (same as '{1}')
+'{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}'
+'{1,2,3,4,5,6,7,8,9,10,(and then all numbers to),9999,10000}'
+'  {1,5,7,9}'
+'{2,4,6, 8  }  '
+'{0}'
+
+错误的：
+'{a,b,c}'
+'{ a, b, c }'
+'{1, 2.0, 3}'
+'{1, {2,3}, 4}'
+'{1, 2, 3, 4, five}'
+'{ 1 2 3 4 }'
+'1 2 3 4'
+'1 2 3}'
+'{ -1 }'
+'{1,2,3'
+'1,2,3,4,5'
+'{{1,2,3,5}'
+'{7,17,,27,37}'
+'{1,2,3,5,8,}'
