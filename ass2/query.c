@@ -64,7 +64,7 @@ void scanAndDisplayMatchingTuples(Query q) {
     // TODO (Done)
     Reln reln = q->rel; // 获取表
     for (q->curpage = 0; q->curpage < nPages(reln); q->curpage++) { // 从第0个page开始获取
-		if(!bitIsSet(q->pages, q->curpage)){ // FALSE->continue, TRUE继续执行
+	if(!bitIsSet(q->pages, q->curpage)){ // FALSE->continue, TRUE继续执行
             continue;
         }
         Page page = getPage(dataFile(reln), q->curpage); // 获取当前page
